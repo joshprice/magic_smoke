@@ -12,7 +12,7 @@ CONFIG = <<-DSL
 DSL
 
 class Routes
-  class << self 
+  class << self
     def all
       Rails.application.reload_routes!
       @all ||= Rails.application.routes.routes
@@ -34,10 +34,13 @@ namespace :magic_smoke do
   
   desc 'Tests all the GET requests with no parameters in your routes'
   task :routes => :environment do
+    mock_request = Rack::MockRequest.new(Rails.application)
+
     puts "Testing GETs..."
     # ap Routes.get_requests_with_no_params
     Routes.get_requests_with_no_params.each do |route|
-      response = Rails.application.call(Rack::MockRequest.env_for("http://localhost:3000/#{route.path}"))
+      #response = Rails.application.call(Rack::MockRequest.env_for("http://localhost:3000/#{route.path}"))
+      response = mock_request.get("http://localhost:3000/#{route.path}")
       puts "#{response[0]} #{route.path}"
     end
   end
