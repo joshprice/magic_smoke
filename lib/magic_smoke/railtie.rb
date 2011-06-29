@@ -1,12 +1,10 @@
 require 'magic_smoke'
 require 'rails'
 
-module MyPlugin
+module MagicSmoke
   class Railtie < Rails::Railtie
-    railtie_name :magic_smoke
-
     rake_tasks do
-      load "lib/tasks/magic_smoke.rake"
+      load "tasks/magic_smoke.rake"
     end
   end
 end
