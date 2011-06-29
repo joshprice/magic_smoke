@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version     = MagicSmoke::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Josh Price", "Matt Allen"]
-  s.email       = ["josh@canoniq.com"]
-  s.homepage    = ""
+  s.email       = ["josh@canoniq.com", "matt@devlogic.com.au"]
+  s.homepage    = "http://github.com/joshprice/magic_smoke"
   s.summary     = %q{A magical smoke test suite for your rails app}
   s.description = %q{Checks that no routes in your app break}
 
