@@ -1,10 +1,5 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
-
-require File.expand_path('../config/environment', __FILE__)
+require File.expand_path('config/environment', Rails.application.paths.path.to_s)
 require 'rake'
-
-Communities::Application.load_tasks
 
 #config
 CONFIG = <<-DSL
@@ -34,13 +29,11 @@ namespace :magic_smoke do
   
   desc 'Tests all the GET requests with no parameters in your routes'
   task :routes => :environment do
-    mock_request = Rack::MockRequest.new(Rails.application)
 
     puts "Testing GETs..."
     # ap Routes.get_requests_with_no_params
     Routes.get_requests_with_no_params.each do |route|
-      #response = Rails.application.call(Rack::MockRequest.env_for("http://localhost:3000/#{route.path}"))
-      response = mock_request.get("http://localhost:3000/#{route.path}")
+      response = Rails.application.call(Rack::MockRequest.env_for("http://localhost/#{route.path}"))
       puts "#{response[0]} #{route.path}"
     end
   end
